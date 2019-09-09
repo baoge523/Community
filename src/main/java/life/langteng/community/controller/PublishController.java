@@ -64,7 +64,7 @@ public class PublishController {
             request.setAttribute("tagError","标签不能为空");
             return "publish";
         }
-        questionService.createOrUpdate(question,request);
+        questionService.createOrUpdate(question);
         return "redirect:/";
     }
 

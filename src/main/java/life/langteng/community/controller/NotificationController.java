@@ -21,7 +21,9 @@ public class NotificationController {
     private INotificationService notificationService;
 
     /**
-     * 这里差一个分页
+     *
+     *  需要将分页弄成一个工具类，类似于pageHelper
+     *
      * @param request
      * @return
      */
@@ -37,10 +39,32 @@ public class NotificationController {
         }
         int total = (int) notificationService.queryCount();
 
-        int totalPages = ((total % pageSize == 0) ? (total / pageSize) : (total / pageSize + 1));
+        // 避免 limit -8,8的问题
+
+        int totalPages;
+
+        if(total == 0){
+            totalPages = 1;
+        }else{
+            totalPages = ((total % pageSize == 0) ? (total / pageSize) : (total / pageSize + 1));
+        }
+
 
         /**
-         * 容错 最大值
+         * 容错 最大值  -- 这里可能会出现一个问题
+         *
+         * 问题如下:
+         *   currentPage = 1
+         *   total = 0  导致  totalPages = 0
+         *
+         *   currentPage > totalPages  成立
+         *
+         *   currentPage = totalPages = 0
+         *
+         *   从而导致
+         *
+         *   limit -8,8的问题
+         *
          */
         if (currentPage > totalPages) {
             currentPage = totalPages;
@@ -54,11 +78,7 @@ public class NotificationController {
 
         List<NotificationDTO> notificationDTOS = notificationService.queryNotificationsByPage(currentPage,pageSize);
 
-        PageHelperDTO<NotificationDTO> pageHelperDTO = null;
-
-        if (total != 0) {
-            pageHelperDTO = new PageHelperDTO(notificationDTOS, currentPage, pageSize, total);
-        }
+        PageHelperDTO<NotificationDTO> pageHelperDTO = new PageHelperDTO(notificationDTOS, currentPage, pageSize, total);
 
         request.setAttribute("pageHelper",pageHelperDTO);
 

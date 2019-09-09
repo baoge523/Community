@@ -1,5 +1,6 @@
 package life.langteng.community.service.impl;
 
+import life.langteng.community.bean.InSession;
 import life.langteng.community.bean.ReminderMessage;
 import life.langteng.community.dto.QuestionDTO;
 import life.langteng.community.entity.Question;
@@ -11,6 +12,8 @@ import life.langteng.community.mapper.QuestionMapper;
 import life.langteng.community.service.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -59,8 +62,10 @@ public class QuestionServiceImpl implements IQuestionService {
          */
 
         int position = (currentPage - 1) * pageSize;
-
-        return questionCustomizeMapper.queryQuestionByPage(search,position,pageSize);
+        /**
+         *  mapper 获取集合时，如果没有数据，会返回一个空集合，不会返回null
+         */
+        return questionCustomizeMapper.queryQuestionByPage(search, position, pageSize);
     }
 
     @Override
@@ -100,14 +105,15 @@ public class QuestionServiceImpl implements IQuestionService {
     /**
      * 创建或者更新问题
      * @param question
-     * @param request
      */
     @Override
-    public void createOrUpdate(Question question,HttpServletRequest request) {
+    public void createOrUpdate(Question question) {
+
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        User user = (User) requestAttributes.getAttribute(InSession.USER_IN_SESSION, RequestAttributes.SCOPE_SESSION);
 
         // 新建
         if (question.getId() == null) {
-            User user = (User) request.getSession().getAttribute("user");
             question.setCreator(user.getId());
             question.setCommentCount(0);
             question.setViewCount(0);

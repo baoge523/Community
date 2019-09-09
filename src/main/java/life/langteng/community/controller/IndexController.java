@@ -53,7 +53,14 @@ public class IndexController {
         }
         int total = (int) questionService.queryCount(search);
 
-        int totalPages = ((total % pageSize == 0) ? (total / pageSize) : (total / pageSize + 1));
+        // 总页数
+        int totalPages;
+
+        if(total == 0){
+            totalPages = 1; // 总记录数为0时，默认为1页
+        }else{
+            totalPages = ((total % pageSize == 0) ? (total / pageSize) : (total / pageSize + 1));
+        }
 
         /**
          * 容错 最大值
@@ -70,11 +77,7 @@ public class IndexController {
 
         List<QuestionDTO> questions = questionService.queryQuestionByPage(search,currentPage,pageSize);
 
-        PageHelperDTO<QuestionDTO>  pageHelperDTO = null;
-
-        if (total != 0) {
-            pageHelperDTO = new PageHelperDTO(questions, currentPage, pageSize, total);
-        }
+        PageHelperDTO<QuestionDTO>  pageHelperDTO = new PageHelperDTO(questions, currentPage, pageSize, total);
 
         request.setAttribute("pageHelper",pageHelperDTO);
 

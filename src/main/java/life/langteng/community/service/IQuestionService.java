@@ -62,7 +62,7 @@ public interface IQuestionService {
      * 创建或者提交问题
      * @param question
      */
-    void createOrUpdate(Question question,HttpServletRequest request);
+    void createOrUpdate(Question question);
 
     /**
      * 浏览数在 数据库中 自增1  view_count = view_count + 1

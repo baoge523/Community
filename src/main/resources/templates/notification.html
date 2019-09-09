@@ -22,7 +22,7 @@
             <!--
              th:each 使用在哪个标签上面，哪个标签及其包含的标签都会进入循环
             -->
-            <div class="media notification" th:each="notification:${pageHelper.datas}">
+            <div class="media notification" th:each="notification:${pageHelper.datas}" th:if="${pageHelper.datas.size() != 0}">
                 <div class="media-left">
                     <span th:text="${notification.replyerName}"></span>
                 </div>
@@ -37,7 +37,7 @@
 
 
             <!-- 分页 -->
-            <div th:if="${pageHelper != null}" >
+            <div th:if="${pageHelper.datas.size() != 0}" >
                 <nav aria-label="Page navigation" th:class="pageStyle">
                     <ul class="pagination">
                         <li th:if="${pageHelper.firstPage}">

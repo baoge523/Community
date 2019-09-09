@@ -54,22 +54,28 @@ public class QuestionController {
 
         int total = (int) questionService.queryCountByUserId(user.getId());
         // 总页数
-        int count = ((total % pageSize == 0) ? (total / pageSize) : (total / pageSize + 1));
+        int totalPages;
+
+        // 总记录条数 为0 时
+        if (total == 0){
+            totalPages = 1;  // 默认是第一页，避免 currentPage(1) > totalPages(0)  --> currentPage = totalPages = 0 的问题
+        }else{
+            totalPages = ((total % pageSize == 0) ? (total / pageSize) : (total / pageSize + 1));
+        }
+
 
         /**
          * 容错 最大值
          */
-        if (currentPage > count) {
-            currentPage = count;
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
         }
 
         List<QuestionDTO> questions = questionService.getQuestionsByUserId(user.getId(),currentPage,pageSize);
 
-        PageHelperDTO pageHelper = null;
+        PageHelperDTO pageHelper = pageHelper = new PageHelperDTO(questions,currentPage,pageSize,total);
 
-        if(total != 0){
-            pageHelper = new PageHelperDTO(questions,currentPage,pageSize,total);
-        }
+
         model.addAttribute("pageHelper",pageHelper);
 
         return "questions";
