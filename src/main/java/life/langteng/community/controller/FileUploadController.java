@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -30,7 +31,10 @@ public class FileUploadController {
      * @return
      */
     @RequestMapping("/upload")
-    public FileUploadDTO fileUpload(@RequestParam("editormd-image-file") MultipartFile multipartFile){
+    public FileUploadDTO fileUpload( HttpServletRequest request,
+            @RequestParam("editormd-image-file") MultipartFile multipartFile){
+
+
 
         FileUploadDTO fileUploadDTO = fileUploadService.fileUpload(multipartFile);
 

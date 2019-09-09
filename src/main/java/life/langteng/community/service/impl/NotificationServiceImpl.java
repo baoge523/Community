@@ -43,6 +43,7 @@ public class NotificationServiceImpl implements INotificationService {
     }
 
     @Override
+    @Deprecated
     public List<NotificationDTO> queryNotificationsByCurrentUserId() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         User user = (User)requestAttributes.getAttribute(InSession.USER_IN_SESSION,RequestAttributes.SCOPE_SESSION);

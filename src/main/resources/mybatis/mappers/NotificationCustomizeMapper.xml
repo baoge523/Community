@@ -26,16 +26,17 @@
     <select id="queryNotificationsByUserId" resultMap="notificationDTO">
         select n.id,n.type,n.gmt_create,n.status,n.outter_title,n.outter,
         u.id u_id,u.account,u.name,u.token,u.intro,u.gmt_create u_gmt_create,u.gmt_modified u_gmt_modified,u.avatar_url
-         from tb_notification n,tb_user u where n.replyer = u.id and n.receiver=#{userId} order by n.gmt_create desc
+         from tb_notification n,tb_user u where n.receiver = u.id and n.receiver=#{userId} order by n.gmt_create desc
     </select>
 
     <select id="getNotificationCountByUserId" resultType="int">
         select count(1) from tb_notification where status=0 and receiver=#{userId}
     </select>
 
+
     <select id="queryNotificationsByPage" resultMap="notificationDTO">
       select n.id,n.type,n.gmt_create,n.status,n.outter_title,n.outter,
         u.id u_id,u.account,u.name,u.token,u.intro,u.gmt_create u_gmt_create,u.gmt_modified u_gmt_modified,u.avatar_url
-         from tb_notification n,tb_user u where n.replyer = u.id and n.receiver=#{userId} order by n.gmt_create desc limit #{position},#{pageSize}
+         from tb_notification n,tb_user u where n.receiver = u.id and n.receiver=#{userId} order by n.gmt_create desc limit #{position},#{pageSize}
     </select>
 </mapper>

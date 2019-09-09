@@ -8,6 +8,7 @@ public interface INotificationService {
 
     Integer getNotificationCountByUserId();
 
+    @Deprecated
     List<NotificationDTO> queryNotificationsByCurrentUserId();
 
     /**

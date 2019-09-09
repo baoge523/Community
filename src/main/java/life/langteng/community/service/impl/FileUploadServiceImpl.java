@@ -4,6 +4,7 @@ import life.langteng.community.dto.FileUploadDTO;
 import life.langteng.community.service.IFileUploadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,11 +29,12 @@ public class FileUploadServiceImpl implements IFileUploadService {
 
         String fileName = uuid + "-" + file.getOriginalFilename();
 
-        //  这里有点问题
+        // 从环境变量中获取当前项目的路径
+        String rootPath = System.getProperty("user.dir");
 
-        String filePath = "E:\\WorkSpace\\study\\Community\\src\\main\\resources\\static\\images\\" + fileName;
+        String filePath =rootPath+"\\src\\main\\resources\\static\\images\\"+ fileName;
 
-
+        logger.info("当前存放图片的绝对路径"+filePath);
 
         File f = new File(filePath);
 

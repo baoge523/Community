@@ -56,10 +56,15 @@ public class WebConfig implements WebMvcConfigurer {
      *      映射路径: file: 文件路径  classpath: 类路径
      *              需要以 \\ 或者 / 结尾
      *
+     *
+     *   System.getProperty("user.dir"); 获取当前项目的路径
+     *
+     *
      * @param registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**").addResourceLocations("classpath:\\static\\images\\");
+
+        registry.addResourceHandler("/images/**").addResourceLocations("file:"+System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\");
     }
 }
