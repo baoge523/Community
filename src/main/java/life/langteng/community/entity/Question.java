@@ -1,5 +1,8 @@
 package life.langteng.community.entity;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
+@Document(indexName = "mysql-community*")
 public class Question {
     private Integer id;
 
@@ -99,5 +102,15 @@ public class Question {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", tag='" + tag + '\'' +
+                ", creator=" + creator +
+                '}';
     }
 }

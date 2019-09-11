@@ -10,6 +10,7 @@ import life.langteng.community.exception.QuestionExcepiton;
 import life.langteng.community.mapper.QuestionCustomizeMapper;
 import life.langteng.community.mapper.QuestionMapper;
 import life.langteng.community.service.IQuestionService;
+import life.langteng.community.utils.PageHelperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;
@@ -41,7 +42,7 @@ public class QuestionServiceImpl implements IQuestionService {
     }
 
     @Override
-    public List<QuestionDTO> queryQuestionByPage(String search,Integer currentPage, Integer pageSize) {
+    public List<QuestionDTO> queryQuestionByPage(String search,Integer currentPage, Integer pageSize,Integer total) {
         /**
          *   假设:  pageSize  为   5
          *
@@ -61,6 +62,8 @@ public class QuestionServiceImpl implements IQuestionService {
          *
          */
 
+        currentPage = PageHelperUtil.validCurrentPage(currentPage, pageSize, total);
+
         int position = (currentPage - 1) * pageSize;
         /**
          *  mapper 获取集合时，如果没有数据，会返回一个空集合，不会返回null
@@ -74,11 +77,18 @@ public class QuestionServiceImpl implements IQuestionService {
     }
 
     @Override
-    public List<QuestionDTO> getQuestionsByUserId(Integer userId, Integer currentPage, Integer pageSize) {
+    public List<QuestionDTO> queryQuestionsByUserId(Integer currentPage, Integer pageSize,Integer total) {
+
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        User user = (User) requestAttributes.getAttribute(InSession.USER_IN_SESSION, RequestAttributes.SCOPE_SESSION);
+        /**
+         * 校验currentPage的合法性
+         */
+        currentPage = PageHelperUtil.validCurrentPage(currentPage, pageSize, total);
 
         int position = (currentPage -1) * pageSize;
 
-        List<QuestionDTO> questions = questionCustomizeMapper.getQuestionsDTOByUserId(userId,position,pageSize);
+        List<QuestionDTO> questions = questionCustomizeMapper.getQuestionsDTOByUserId(user.getId(),position,pageSize);
 
         return questions;
     }

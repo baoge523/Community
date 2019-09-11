@@ -156,8 +156,8 @@
                     <!--
                      这里是显示 session 中的数据
                     -->
-                    <img class="avatar img-rounded" th:src="${session.user == null ? question.user.avatarUrl :session.user.avatarUrl}"/>
-                    <h5 style="display: inline"><span th:text="${session.user == null ? question.user.name : session.user.name}"></span></h5>
+                    <img class="avatar img-rounded" th:src="${session.user == null ? question.userAvatarUrl :session.user.avatarUrl}"/>
+                    <h5 style="display: inline"><span th:text="${session.user == null ? question.userName : session.user.name}"></span></h5>
                 </div>
             </div>
             <hr>

@@ -25,10 +25,6 @@ public class QuestionDTO {
      */
     private String tag;
     /**
-     * 问题提出者的id
-     */
-    private Integer creator;
-    /**
      * 创建的时间戳
      */
     private Long gmtCreate;
@@ -50,11 +46,24 @@ public class QuestionDTO {
      * 点赞数
      */
     private Integer likeCount;
+    /**
+     * 问题提出者的id
+     */
+    private Integer creator;
 
     /**
      * 发布问题的用户信息
      */
     private User user;
+    /**
+     * 用户名称
+     */
+    private String userName;
+    /**
+     * 用户的头像
+     */
+    private String userAvatarUrl;
+
 
     @Override
     public String toString() {

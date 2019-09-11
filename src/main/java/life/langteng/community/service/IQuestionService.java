@@ -27,7 +27,7 @@ public interface IQuestionService {
      * @param pageSize
      * @return
      */
-    List<QuestionDTO> queryQuestionByPage(String search,Integer currentPage, Integer pageSize);
+    List<QuestionDTO> queryQuestionByPage(String search,Integer currentPage, Integer pageSize,Integer total);
 
     /**
      * 查询中的记录数
@@ -37,12 +37,12 @@ public interface IQuestionService {
 
     /**
      * 通过用户id，查询该用户发起的所有问题
-     * @param id
      * @param currentPage
      * @param pageSize
+     * @param total
      * @return
      */
-    List<QuestionDTO> getQuestionsByUserId(Integer id,Integer currentPage,Integer pageSize);
+    List<QuestionDTO> queryQuestionsByUserId(Integer currentPage,Integer pageSize,Integer total);
 
     /**
      * 查询指定用户发布问题的总个数

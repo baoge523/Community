@@ -30,11 +30,33 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!--aop的起动器-->
+		<!--aop的启动器-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
+
+		<!--
+		 springBoot 使用 es 有两种方式:
+
+			二选一
+
+		 	1、使用启动器的方式
+		 	2、使用jest的方式    什么主版本的es就使用什么版本的jest
+
+		-->
+		<!--引入elasticsearch的启动器-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.searchbox/jest -->
+		<!--<dependency>-->
+			<!--<groupId>io.searchbox</groupId>-->
+			<!--<artifactId>jest</artifactId>-->
+			<!--<version>6.3.1</version>-->
+		<!--</dependency>-->
 
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>

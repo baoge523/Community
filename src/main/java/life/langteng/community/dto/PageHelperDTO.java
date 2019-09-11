@@ -9,7 +9,7 @@ import java.util.List;
  * 分页
  */
 @Data
-public class PageHelperDTO<T> {
+public class  PageHelperDTO<T> {
 
     private static final Integer FIRST_PAGE = 1;
 

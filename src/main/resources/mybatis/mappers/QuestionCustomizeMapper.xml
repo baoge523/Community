@@ -8,6 +8,8 @@
     <result column="description" property="description"></result>
     <result column="tag" property="tag"></result>
     <result column="creator" property="creator"></result>
+    <result column="name" property="userName"></result>
+    <result column="avatar_url" property="userAvatarUrl"></result>
     <result column="gmt_create" property="gmtCreate"></result>
     <result column="gmt_modified" property="gmtModified"></result>
     <result column="comment_count" property="commentCount"></result>
