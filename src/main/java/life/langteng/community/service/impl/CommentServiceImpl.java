@@ -1,5 +1,6 @@
 package life.langteng.community.service.impl;
 
+import life.langteng.community.annotation.NeedLogin;
 import life.langteng.community.bean.*;
 import life.langteng.community.dto.CommentDTO;
 import life.langteng.community.entity.Comment;

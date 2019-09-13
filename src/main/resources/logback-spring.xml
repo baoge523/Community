@@ -1,0 +1,64 @@
+<!--
+  scan="true" 表示 开启logback自动扫描配置文件,默认是一分钟扫描一次，当我们可以自定义扫描周期
+  scanPeriod="10 seconds" 表示每隔10秒钟扫描一次配置文件，单位可以是毫秒，秒，分钟或者小时.如果没有指定时间单位，则默认为毫秒。
+-->
+<configuration scan="true" scanPeriod="10 seconds" debug="false">
+
+    <!--配置自定义的转换器，用来支持我们的自定义输出形式
+    %logger 就是对应的是:  LoggerConverter
+    -->
+    <conversionRule conversionWord="type" converterClass="com.cyou.common.base.log.converter.TypeConverter"></conversionRule>
+
+    <conversionRule conversionWord="signatrue" converterClass="com.cyou.common.base.log.converter.SignatrueConverter"></conversionRule>
+
+
+
+
+    <!--
+     输出到控制台
+    -->
+    <appender name="STDOUT-cyou" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--
+             % 后面的字符串,我们都可自定义，通过继承 ClassicConverter 类，并在配置文件中通过conversionrule配置即可
+
+             %d 时间 可以使用默认的，也可以自定义
+             %thread 线程
+             %logger logger信息 {36} 只显示36个字符
+             %msg   消息
+             %n     换行
+             %mdc{aa} 去mdc中获取对应的值，并打印出来
+            -->
+            <pattern>[%d] [%-5level] [%thread] [执行时间:%mdc{execute_time}] -[应用标识:%mdc{app_key}] [渠道id:%mdc{channel_id}] [请求头:%mdc{request_header}] [uri:%mdc{uri}] - [类型:%type] [等级:%mdc{grade}]  [消息:%msg] [方法参数:%mdc{method_args}]  [方法返回:%mdc{method_return}] [track:%mdc{track}] [mark:%mdc{mark}] [序号:%mdc{process_sn}] %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT-default" class="ch.qos.logback.core.ConsoleAppender">
+
+        <encoder>
+            <pattern>%date %-5level [%thread] %logger{36} -%msg %n</pattern>
+        </encoder>
+    </appender>
+    <!--
+       name logger的名字 必须的
+       level 日志级别,可选的，不指定默认继承父类的
+       additivity 是否继承父类的输出  可选的  true（默认的） 或者 false
+
+
+       比如：
+            该logger是指定输出到文件中的
+            但是该logger的父类又是输出到控制台的，如果该logger不想输出到控制器中,
+            那么就可以设置additivity=false来忽略继承父类的输出
+    -->
+    <logger name="life.langteng.community" level="info" additivity="false" >
+        <appender-ref ref="STDOUT-cyou"></appender-ref>
+    </logger>
+    <logger name="com.cyou" level="info" additivity="false">
+        <appender-ref ref="STDOUT-cyou" />
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="STDOUT-default"></appender-ref>
+    </root>
+
+</configuration>

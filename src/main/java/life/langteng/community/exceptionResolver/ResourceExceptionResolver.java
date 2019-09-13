@@ -2,6 +2,8 @@ package life.langteng.community.exceptionResolver;
 
 import life.langteng.community.bean.ResultMap;
 import life.langteng.community.exception.CommunityException;
+import life.langteng.community.exception.NotLoginException;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,8 +28,10 @@ import org.springframework.web.servlet.ModelAndView;
  *
  *  annotations  指定注解的字节码对象 如 Controller.class RestController.class
  *
+ * annotations = Controller.class
  */
-@ControllerAdvice(annotations = Controller.class)
+@ControllerAdvice()
+@Order(1)
 public class ResourceExceptionResolver {
 
 
@@ -61,15 +65,15 @@ public class ResourceExceptionResolver {
         return mv;
     }
 
-//    @ResponseBody
-//    @ExceptionHandler(value = CommunityException.class)
-//    public ResultMap handlerCommentException(CommunityException e){
-//        ResultMap resultMap = new ResultMap();
-//        resultMap.setCode(e.getCode());
-//        resultMap.setMessage(e.getMessage());
-//
-//        return resultMap;
-//    }
+    @ResponseBody
+    @ExceptionHandler(value = NotLoginException.class)
+    public ResultMap handlerResourceException(NotLoginException e){
+        ResultMap map = new ResultMap();
+        map.setCode(e.getCode());
+        map.setMessage(e.getMessage());
+        return map;
+    }
+
 
 
     /**

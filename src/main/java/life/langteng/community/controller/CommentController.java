@@ -1,5 +1,6 @@
 package life.langteng.community.controller;
 
+import life.langteng.community.annotation.NeedLogin;
 import life.langteng.community.bean.ResultMap;
 import life.langteng.community.dto.CommentDTO;
 import life.langteng.community.entity.Comment;
@@ -28,11 +29,13 @@ public class CommentController {
      *
      * @return
      */
+    @NeedLogin
     @PostMapping("/profile/comment")
     public ResultMap comment(@RequestBody Comment comment){
 
-        ResultMap resultMap = commentService.createComment(comment);
-
+//        ResultMap resultMap = commentService.createComment(comment);
+        ResultMap resultMap = new ResultMap(2000);
+        resultMap.setMessage("没有登录也能访问!");
         return resultMap;
     }
 

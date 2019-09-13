@@ -1,5 +1,7 @@
 package life.langteng.community.service.impl;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
 import life.langteng.community.bean.InSession;
 import life.langteng.community.bean.ReminderMessage;
 import life.langteng.community.dto.QuestionDTO;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
+@LogPoint(type = CyouLogger.Type.INVOKE,message = "调用QuestionService")
 public class QuestionServiceImpl implements IQuestionService {
 
     @Autowired

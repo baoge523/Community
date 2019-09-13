@@ -1,5 +1,6 @@
 package life.langteng.community.controller;
 
+import life.langteng.community.annotation.NeedLogin;
 import life.langteng.community.dto.FileUploadDTO;
 import life.langteng.community.service.IFileUploadService;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 所有的方法都以json的格式传递出去
  */
+@NeedLogin
 @RestController
 @RequestMapping("/file")
 public class FileUploadController {

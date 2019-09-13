@@ -1,5 +1,6 @@
 package life.langteng.community.controller;
 
+import life.langteng.community.annotation.NeedLogin;
 import life.langteng.community.dto.QuestionDTO;
 import life.langteng.community.entity.Question;
 import life.langteng.community.entity.User;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 发布的控制器
  */
+@NeedLogin
 @Controller
 @RequestMapping("/profile")
 public class PublishController {

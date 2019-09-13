@@ -1,5 +1,8 @@
 package life.langteng.community.controller;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
+import life.langteng.community.annotation.NeedLogin;
 import life.langteng.community.dto.CommentDTO;
 import life.langteng.community.dto.PageHelperDTO;
 import life.langteng.community.dto.QuestionDTO;
@@ -37,7 +40,9 @@ public class QuestionController {
      * 用来展示用户提出的所有问题
      * @return
      */
+    @NeedLogin
     @GetMapping("/questions")
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "查询当前用户的所有问题")
     public String userQuestions(HttpServletRequest request,
                                 @RequestParam(name = "currentPage",defaultValue = "1")Integer currentPage,
                                 @RequestParam(name = "pageSize",defaultValue ="8")Integer pageSize,
@@ -65,6 +70,7 @@ public class QuestionController {
      * @param notificationId  通知id
       * @return
      */
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "查看当前用户的所有提出的问题")
     @GetMapping("/question/{id}")
     public String userReplies(@PathVariable(name = "id") Integer questionId,
                               HttpServletRequest request,
