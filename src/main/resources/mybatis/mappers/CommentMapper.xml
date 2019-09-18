@@ -113,7 +113,7 @@
       #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, #{commentCount,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="life.langteng.community.entity.Comment">
+  <insert id="insertSelective" parameterType="life.langteng.community.entity.Comment" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
     insert into tb_comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

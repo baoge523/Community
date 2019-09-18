@@ -11,6 +11,8 @@ import life.langteng.community.entity.User;
 import life.langteng.community.service.ICommentService;
 import life.langteng.community.service.INotificationService;
 import life.langteng.community.service.IQuestionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,7 @@ import java.util.List;
 @RequestMapping("/profile") // 表示用户登录后才可以访问的资源
 public class QuestionController {
 
+    private final Logger logger = LoggerFactory.getLogger(QuestionController.class);
 
     @Autowired
     private IQuestionService questionService;
@@ -76,8 +79,10 @@ public class QuestionController {
                               HttpServletRequest request,
                               @RequestParam(value = "notificationId",required = false) Integer notificationId){
 
-        // 修改提示的状态
-        notificationService.editNotificationStatus(notificationId);
+        if (notificationId != null){
+            // 修改提示的状态
+            notificationService.editNotificationStatus(notificationId);
+        }
         // 更新session中的提示
         Integer count = notificationService.getNotificationCountByUserId();
         request.getSession().setAttribute("notificationCount",count);

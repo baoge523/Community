@@ -33,9 +33,7 @@ public class CommentController {
     @PostMapping("/profile/comment")
     public ResultMap comment(@RequestBody Comment comment){
 
-//        ResultMap resultMap = commentService.createComment(comment);
-        ResultMap resultMap = new ResultMap(2000);
-        resultMap.setMessage("没有登录也能访问!");
+        ResultMap resultMap = commentService.createComment(comment);
         return resultMap;
     }
 

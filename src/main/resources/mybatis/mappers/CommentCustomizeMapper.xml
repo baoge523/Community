@@ -35,4 +35,10 @@
     update tb_comment set comment_count=comment_count + #{commentCount} where id =#{id}
   </update>
 
+  <select id="queryCommentById2Redis" resultMap="commentDTO">
+    select co.id,co.parent_id,co.type,co.content,co.commenter,co.like_count,co.gmt_create,co.gmt_modified,co.comment_count,
+   u.id u_id,u.account,u.name,u.token,u.intro,u.gmt_create u_gmt_create,u.gmt_modified u_gmt_modified,u.avatar_url
+    from tb_comment co,tb_user u where co.commenter = u.id and co.id =#{commentId}
+  </select>
+
 </mapper>

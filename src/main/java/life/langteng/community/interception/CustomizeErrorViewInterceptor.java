@@ -1,5 +1,6 @@
 package life.langteng.community.interception;
 
+import com.cyou.common.base.log.CyouLogger;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,16 +34,17 @@ public class CustomizeErrorViewInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-//       if(modelAndView == null){
-//           return;
-//       }
-//        Map<String, Object> model = modelAndView.getModel();
-//        Integer statusCode = (Integer) model.get("status");
-//        HttpStatus httpStatus = HttpStatus.valueOf(statusCode);
-//        // 如果是 4xx 那么就是客户端问题
-//        if(httpStatus.is4xxClientError()){
-//            model.put("message","你的请求方式不对，要不换个姿势!");
-//        }
+       if(modelAndView == null){
+           return;
+       }
+        Map<String, Object> model = modelAndView.getModel();
+        Integer statusCode = (Integer) model.get("status");
+        HttpStatus httpStatus = HttpStatus.valueOf(statusCode);
+        // 如果是 4xx 那么就是客户端问题
+        if(httpStatus.is4xxClientError()){
+            CyouLogger.info("客户端操作有问题,statusCode:"+statusCode);
+            model.put("message","你的请求方式不对，要不换个姿势!");
+        }
     }
 
     @Override

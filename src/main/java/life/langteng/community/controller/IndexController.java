@@ -27,10 +27,12 @@ import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 @Controller
 public class IndexController {
 
+    private final Logger logger = LoggerFactory.getLogger(IndexController.class);
+
     @Autowired
     private IQuestionService questionService;
 
-    @Autowired
+//    @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
 
     /**
@@ -46,7 +48,7 @@ public class IndexController {
                         @RequestParam(name = "search",required = false) String search,
                         @RequestParam(name = "currentPage",defaultValue = "1") Integer currentPage,
                         @RequestParam(name = "pageSize",defaultValue = "8") Integer pageSize){
-
+        logger.info("初始化...");
         if (search != null && search.trim().equals("")) {
             search = null;
         }

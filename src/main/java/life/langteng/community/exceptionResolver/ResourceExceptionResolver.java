@@ -1,5 +1,6 @@
 package life.langteng.community.exceptionResolver;
 
+import com.cyou.common.base.log.CyouLogger;
 import life.langteng.community.bean.ResultMap;
 import life.langteng.community.exception.CommunityException;
 import life.langteng.community.exception.NotLoginException;
@@ -31,12 +32,10 @@ import org.springframework.web.servlet.ModelAndView;
  * annotations = Controller.class
  */
 @ControllerAdvice()
-@Order(1)
+@Order(1)  // 指定我们的优先级比较高
 public class ResourceExceptionResolver {
 
-
     /**
-     *
      *
      * springBoot 默认的异常返回信息包含:
      *          timestamp
@@ -48,7 +47,6 @@ public class ResourceExceptionResolver {
      */
 
 
-
     /**
      *  @ExceptionHandler 默认处理所有的异常，在没有指定异常类型的情况下
      *
@@ -57,10 +55,9 @@ public class ResourceExceptionResolver {
      */
     @ExceptionHandler(value = Throwable.class)
     public ModelAndView handlerException( Throwable e){
-
-        e.printStackTrace();
+        // 打印日志
+        CyouLogger.info(e.getMessage());
         ModelAndView mv = new ModelAndView("error");
-
         mv.addObject("message","服务器冒烟了...");
         return mv;
     }
@@ -68,6 +65,7 @@ public class ResourceExceptionResolver {
     @ResponseBody
     @ExceptionHandler(value = NotLoginException.class)
     public ResultMap handlerResourceException(NotLoginException e){
+        CyouLogger.info(e.getMessage());
         ResultMap map = new ResultMap();
         map.setCode(e.getCode());
         map.setMessage(e.getMessage());

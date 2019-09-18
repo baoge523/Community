@@ -1,5 +1,6 @@
 package life.langteng.community.interception;
 
+import life.langteng.community.bean.InSession;
 import life.langteng.community.entity.User;
 import life.langteng.community.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class CheckLoginInterception implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
+        User user = (User)session.getAttribute(InSession.USER_IN_SESSION);
 
         // session中存在用户信息，直接放行
         if (user != null) {
@@ -71,7 +72,7 @@ public class CheckLoginInterception implements HandlerInterceptor {
                 user = userService.getUserByToken(cookie.getValue());
                 // 能通过token找到用户，那么就放行
                 if(user != null){
-                    session.setAttribute("user",user);
+                    session.setAttribute(InSession.USER_IN_SESSION,user);
                 }
                 break;
             }

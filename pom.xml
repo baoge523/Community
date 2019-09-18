@@ -51,6 +51,12 @@
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
 		</dependency>
 
+		<!--引入redis的启动器-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/io.searchbox/jest -->
 		<!--<dependency>-->
 			<!--<groupId>io.searchbox</groupId>-->

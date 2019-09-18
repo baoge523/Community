@@ -11,4 +11,6 @@ public interface CommentCustomizeMapper {
     List<CommentDTO> queryAllCommentsByParentId(@Param("parentId") Integer parentId,@Param("type")Integer type);
 
     void incCommentCount(Comment comment);
+
+    CommentDTO queryCommentById2Redis(@Param("commentId") Integer commentId);
 }

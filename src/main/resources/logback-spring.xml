@@ -50,11 +50,18 @@
             但是该logger的父类又是输出到控制台的，如果该logger不想输出到控制器中,
             那么就可以设置additivity=false来忽略继承父类的输出
     -->
+
+    <!--
+       不能指定其他其他包下面的logger的打印方式
+       只能指定本项目下的logger
+    -->
+
+    <!--<logger name="com.cyou.common.base.log.CyouLogger" level="info" additivity="false">-->
+        <!--<appender-ref ref="STDOUT-cyou"></appender-ref>-->
+    <!--</logger>-->
+
     <logger name="life.langteng.community" level="info" additivity="false" >
         <appender-ref ref="STDOUT-cyou"></appender-ref>
-    </logger>
-    <logger name="com.cyou" level="info" additivity="false">
-        <appender-ref ref="STDOUT-cyou" />
     </logger>
 
     <root level="info">
