@@ -1,5 +1,7 @@
 package life.langteng.community.controller;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
 import life.langteng.community.annotation.NeedLogin;
 import life.langteng.community.bean.InSession;
 import life.langteng.community.dto.NotificationDTO;
@@ -30,6 +32,7 @@ public class NotificationController {
      * @return
      */
     @RequestMapping("/replies")
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "查看当前用户的回复通知")
     public String replies(HttpServletRequest request,
                           @RequestParam(value = "currentPage",defaultValue = "1") Integer currentPage,
                           @RequestParam(value = "pageSize",defaultValue = "8") Integer pageSize){

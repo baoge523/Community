@@ -1,5 +1,7 @@
 package life.langteng.community.controller;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
 import life.langteng.community.annotation.NeedLogin;
 import life.langteng.community.dto.FileUploadDTO;
 import life.langteng.community.service.IFileUploadService;
@@ -33,7 +35,8 @@ public class FileUploadController {
      * @return
      */
     @RequestMapping("/upload")
-    public FileUploadDTO fileUpload( HttpServletRequest request,
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "上传图片")
+    public FileUploadDTO fileUpload(
             @RequestParam("editormd-image-file") MultipartFile multipartFile){
 
 

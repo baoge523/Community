@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
-@LogPoint(type = CyouLogger.Type.INVOKE,message = "调用QuestionService")
+@LogPoint(type = CyouLogger.Type.INVOKE,message = "调用问题服务")
 public class QuestionServiceImpl implements IQuestionService {
 
     @Autowired

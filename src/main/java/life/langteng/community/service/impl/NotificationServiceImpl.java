@@ -1,5 +1,7 @@
 package life.langteng.community.service.impl;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
 import life.langteng.community.bean.InSession;
 import life.langteng.community.bean.ReminderMessage;
 import life.langteng.community.bean.NotificationType;
@@ -21,6 +23,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.util.List;
 
 @Service
+@LogPoint(type = CyouLogger.Type.INVOKE,message = "调用回复信息通知服务")
 public class NotificationServiceImpl implements INotificationService {
 
     private final Logger logger = LoggerFactory.getLogger(NotificationServiceImpl.class);

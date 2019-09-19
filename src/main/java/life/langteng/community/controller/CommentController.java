@@ -1,6 +1,9 @@
 package life.langteng.community.controller;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
 import life.langteng.community.annotation.NeedLogin;
+import life.langteng.community.bean.ReminderMessage;
 import life.langteng.community.bean.ResultMap;
 import life.langteng.community.dto.CommentDTO;
 import life.langteng.community.entity.Comment;
@@ -31,8 +34,8 @@ public class CommentController {
      */
     @NeedLogin
     @PostMapping("/profile/comment")
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "评论问题或者回复")
     public ResultMap comment(@RequestBody Comment comment){
-
         ResultMap resultMap = commentService.createComment(comment);
         return resultMap;
     }
@@ -44,10 +47,11 @@ public class CommentController {
      * @return
      */
     @GetMapping("/listSubComment")
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "查询当前评论的子评论")
     public ResultMap listSubComment(@RequestParam("commentId") Integer commentId){
 
         List<CommentDTO> commentDTOS = commentService.queryAllCommentComments(commentId);
-        ResultMap resultMap = new ResultMap(2000);
+        ResultMap resultMap = new ResultMap(ReminderMessage.SUCCESS.getCode());
         resultMap.putData("comments",commentDTOS);
         return resultMap;
     }

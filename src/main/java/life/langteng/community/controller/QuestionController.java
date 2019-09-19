@@ -57,7 +57,7 @@ public class QuestionController {
 
         List<QuestionDTO> questions = questionService.queryQuestionsByUserId(currentPage,pageSize,total);
 
-        PageHelperDTO pageHelper = pageHelper = new PageHelperDTO(questions,currentPage,pageSize,total);
+        PageHelperDTO pageHelper = new PageHelperDTO(questions,currentPage,pageSize,total);
 
 
         model.addAttribute("pageHelper",pageHelper);

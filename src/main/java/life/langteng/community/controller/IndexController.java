@@ -1,5 +1,7 @@
 package life.langteng.community.controller;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
 import life.langteng.community.dto.PageHelperDTO;
 import life.langteng.community.dto.QuestionDTO;
 import life.langteng.community.entity.Question;
@@ -44,6 +46,7 @@ public class IndexController {
      * @return
      */
     @RequestMapping("/")
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "访问首页")
     public String index(HttpServletRequest request,
                         @RequestParam(name = "search",required = false) String search,
                         @RequestParam(name = "currentPage",defaultValue = "1") Integer currentPage,

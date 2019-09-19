@@ -1,5 +1,7 @@
 package life.langteng.community.service.impl;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
 import life.langteng.community.bean.ReminderMessage;
 import life.langteng.community.dto.GitHubUserDTO;
 import life.langteng.community.entity.User;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@LogPoint(type = CyouLogger.Type.INVOKE,message = "调用用户服务")
 public class UserServiceImpl implements IUserService {
 
     private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);

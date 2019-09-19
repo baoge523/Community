@@ -1,5 +1,8 @@
 package life.langteng.community.controller;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
+import life.langteng.community.annotation.NeedLogin;
 import life.langteng.community.dto.GitHubUserDTO;
 import life.langteng.community.entity.User;
 import life.langteng.community.provider.GithubProvider;
@@ -74,7 +77,9 @@ public class AuthorizationController {
      * @param response
      * @return
      */
+    @NeedLogin
     @RequestMapping("/logout")
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "退出登录")
     public String logout(HttpServletRequest request,HttpServletResponse response){
 
         // 删除session中用户信息

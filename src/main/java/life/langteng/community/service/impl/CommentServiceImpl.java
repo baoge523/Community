@@ -1,6 +1,7 @@
 package life.langteng.community.service.impl;
 
 import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
 import life.langteng.community.bean.*;
 import life.langteng.community.dto.CommentDTO;
 import life.langteng.community.entity.Comment;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @Slf4j
 @Service
+@LogPoint(type = CyouLogger.Type.INVOKE,message = "调用评论服务")
 public class CommentServiceImpl implements ICommentService {
 
     @Autowired
@@ -148,7 +150,7 @@ public class CommentServiceImpl implements ICommentService {
 
             // 给其父类添加评论数 -- 如果是多级评论，这里就有问题了
             incCommentCount(comment.getParentId(),1);
-            log.info("插入一条评论");
+            log.info("评论:"+comment.getParentId()+"新增一条评论");
             int i = commentMapper.insertSelective(comment);
             // 缓存到redis中
             if(i>0){
@@ -159,6 +161,7 @@ public class CommentServiceImpl implements ICommentService {
                 CommentDTO parentCommentDTO = commentCustomizeMapper.queryCommentById2Redis(comment.getParentId());
                 // 修改问题下的父级评论的评论数
                 redisTemplate.opsForHash().put("questionComments"+question.getId(),comment.getParentId(),parentCommentDTO);
+
             }
             // 记录问题提示记录
             notification(question.getId(),com.getCommenter(),comment.getCommenter(),NotificationType.COMMENT_REPLY,question.getTitle());

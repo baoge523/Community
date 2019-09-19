@@ -9,7 +9,7 @@
     -->
     <conversionRule conversionWord="type" converterClass="com.cyou.common.base.log.converter.TypeConverter"></conversionRule>
 
-    <conversionRule conversionWord="signatrue" converterClass="com.cyou.common.base.log.converter.SignatrueConverter"></conversionRule>
+    <conversionRule conversionWord="signature" converterClass="com.cyou.common.base.log.converter.SignatrueConverter"></conversionRule>
 
 
 
@@ -29,7 +29,7 @@
              %n     换行
              %mdc{aa} 去mdc中获取对应的值，并打印出来
             -->
-            <pattern>[%d] [%-5level] [%thread] [执行时间:%mdc{execute_time}] -[应用标识:%mdc{app_key}] [渠道id:%mdc{channel_id}] [请求头:%mdc{request_header}] [uri:%mdc{uri}] - [类型:%type] [等级:%mdc{grade}]  [消息:%msg] [方法参数:%mdc{method_args}]  [方法返回:%mdc{method_return}] [track:%mdc{track}] [mark:%mdc{mark}] [序号:%mdc{process_sn}] %n</pattern>
+            <pattern>[%d] [%-5level] [%thread] [%logger{36}] [执行时间:%mdc{execute_time}] -[应用标识:%mdc{app_key}] [渠道标识:%mdc{channel_id}] [请求头:%mdc{request_header}] [uri:%mdc{uri}] - [类型:%type] [方法签名:%signature] [等级:%mdc{grade}]  [消息:%msg] [方法参数:%mdc{method_args}]  [方法返回:%mdc{method_return}] [track:%mdc{track}] [mark:%mdc{mark}] [序号:%mdc{process_sn}] %n</pattern>
         </encoder>
     </appender>
 
@@ -52,14 +52,15 @@
     -->
 
     <!--
-       不能指定其他其他包下面的logger的打印方式
-       只能指定本项目下的logger
+      这里有一个坑:
+        如果一个类的logger不是绑定到类上的，通过类名的方式获取不到对应的logger
     -->
-
-    <!--<logger name="com.cyou.common.base.log.CyouLogger" level="info" additivity="false">-->
-        <!--<appender-ref ref="STDOUT-cyou"></appender-ref>-->
-    <!--</logger>-->
-
+    <logger name="com.cyou" level="info" additivity="false">
+        <appender-ref ref="STDOUT-cyou"></appender-ref>
+    </logger>
+    <!--
+     我们自己的类中的日志输出格式
+    -->
     <logger name="life.langteng.community" level="info" additivity="false" >
         <appender-ref ref="STDOUT-cyou"></appender-ref>
     </logger>

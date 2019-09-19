@@ -1,5 +1,7 @@
 package life.langteng.community.service.impl;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
 import life.langteng.community.dto.FileUploadDTO;
 import life.langteng.community.service.IFileUploadService;
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Service
+@LogPoint(type = CyouLogger.Type.INVOKE,message = "调用上传图片服务")
 public class FileUploadServiceImpl implements IFileUploadService {
 
     private final Logger logger = LoggerFactory.getLogger(FileUploadServiceImpl.class);
@@ -41,7 +44,7 @@ public class FileUploadServiceImpl implements IFileUploadService {
         try {
             file.transferTo(f);
         } catch (IOException e) {
-            logger.info("图片copy失败",e);
+            logger.info("图片上传失败",e);
             return FileUploadDTO.fail();
         }
         // 这里必须是相对了classpath路径，不然会报错

@@ -1,5 +1,7 @@
 package life.langteng.community.controller;
 
+import com.cyou.common.base.log.CyouLogger;
+import com.cyou.common.base.log.annotation.LogPoint;
 import life.langteng.community.annotation.NeedLogin;
 import life.langteng.community.dto.QuestionDTO;
 import life.langteng.community.entity.Question;
@@ -29,6 +31,7 @@ public class PublishController {
      * @return
      */
     @GetMapping("/publish")
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "来到发布页面")
     public String publish(){
         return "publish";
     }
@@ -45,6 +48,7 @@ public class PublishController {
      * @return
      */
     @PostMapping("/publish")
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "发布或修改问题")
     public String doPublish(Question question,HttpServletRequest request, Model model){
         // 用来做回显
         model.addAttribute("question",question);
@@ -71,6 +75,7 @@ public class PublishController {
     }
 
     @GetMapping("/edit/{questionId}")
+    @LogPoint(type = CyouLogger.Type.ACCESS,message = "来到修改问题页面")
     public String edit(@PathVariable(name = "questionId")Integer questionId,
                        Model model){
 
